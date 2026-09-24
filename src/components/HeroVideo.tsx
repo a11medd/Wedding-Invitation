@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { HERO_VIDEO } from '../config';
 import { mulberry32 } from '../lib/shapes';
-import portrait from '../assets/couple-portrait.jpg';
+import portrait from '../assets/couple-portrait.jpeg';
 
 /**
  * Behind the couple's names.
