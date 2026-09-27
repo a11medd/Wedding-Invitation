@@ -16,38 +16,38 @@ export function WaxSeal({ className = '', glint = true }: { className?: string; 
     <div className={`wax-seal ${className}`}>
       <svg viewBox="0 0 200 200" className="wax-seal__svg" aria-hidden="true">
         <defs>
-          {/* Beige wax body */}
+          {/* White wax body */}
           <radialGradient id={id('wax')} cx="36%" cy="30%" r="80%">
-            <stop offset="0" stopColor="#f5e8d3" />
-            <stop offset="0.16" stopColor="#e8d5b5" />
-            <stop offset="0.42" stopColor="#d5b88c" />
-            <stop offset="0.7" stopColor="#b89e7c" />
-            <stop offset="1" stopColor="#8f7453" />
+            <stop offset="0" stopColor="#ffffff" />
+            <stop offset="0.16" stopColor="#fafbfa" />
+            <stop offset="0.42" stopColor="#eff2ee" />
+            <stop offset="0.7" stopColor="#dde2dc" />
+            <stop offset="1" stopColor="#bec5bc" />
           </radialGradient>
-          {/* Recessed well — warm beige */}
+          {/* Recessed well — delicate white */}
           <radialGradient id={id('well')} cx="62%" cy="66%" r="78%">
-            <stop offset="0" stopColor="#e0c7a1" />
-            <stop offset="0.5" stopColor="#cca97b" />
-            <stop offset="1" stopColor="#a37c53" />
+            <stop offset="0" stopColor="#f8faf7" />
+            <stop offset="0.5" stopColor="#e8ece6" />
+            <stop offset="1" stopColor="#ccd2ca" />
           </radialGradient>
           {/* Inner rim shadow */}
           <linearGradient id={id('rimIn')} x1="0.15" y1="0.1" x2="0.85" y2="0.9">
-            <stop offset="0" stopColor="#8f7453" />
-            <stop offset="0.55" stopColor="#cca97b" stopOpacity="0.5" />
-            <stop offset="1" stopColor="#f5e8d3" />
+            <stop offset="0" stopColor="#b8beb6" />
+            <stop offset="0.55" stopColor="#dbe0d9" stopOpacity="0.5" />
+            <stop offset="1" stopColor="#ffffff" />
           </linearGradient>
           {/* Outer rim highlight */}
           <linearGradient id={id('rimOut')} x1="0.15" y1="0.1" x2="0.85" y2="0.9">
-            <stop offset="0" stopColor="#faf2e3" />
-            <stop offset="0.5" stopColor="#d5b88c" stopOpacity="0.4" />
-            <stop offset="1" stopColor="#a37c53" />
+            <stop offset="0" stopColor="#ffffff" />
+            <stop offset="0.5" stopColor="#e2e7e0" stopOpacity="0.5" />
+            <stop offset="1" stopColor="#c5cbc3" />
           </linearGradient>
           {/* Embossed element fill */}
           <linearGradient id={id('glyph')} x1="0.2" y1="0" x2="0.8" y2="1">
             <stop offset="0" stopColor="#ffffff" />
-            <stop offset="0.38" stopColor="#f5e8d3" />
-            <stop offset="0.72" stopColor="#b89e7c" />
-            <stop offset="1" stopColor="#7a5532" />
+            <stop offset="0.38" stopColor="#fafbfa" />
+            <stop offset="0.72" stopColor="#dce1da" />
+            <stop offset="1" stopColor="#b2b8af" />
           </linearGradient>
 
           {/* domed wax body with a soft specular hot-spot */}
@@ -69,7 +69,7 @@ export function WaxSeal({ className = '', glint = true }: { className?: string; 
             <feComposite in="s" in2="SourceAlpha" operator="in" result="si" />
             <feOffset in="SourceAlpha" dx="1.1" dy="1.6" result="o" />
             <feGaussianBlur in="o" stdDeviation="0.9" result="ob" />
-            <feFlood floodColor="#705943" floodOpacity="0.8" />
+            <feFlood floodColor="#7d857a" floodOpacity="0.7" />
             <feComposite in2="ob" operator="in" result="sh" />
             <feMerge>
               <feMergeNode in="sh" />
@@ -92,7 +92,7 @@ export function WaxSeal({ className = '', glint = true }: { className?: string; 
           </clipPath>
         </defs>
 
-        {/* wax pool — cream base */}
+        {/* wax pool — white base */}
         <path d={outer} fill={url('wax')} filter={url('dome')} />
         {/* subtle texture overlay */}
         <rect width="200" height="200" filter={url('grain')} clipPath={url('clip')} opacity="0.07" style={{ mixBlendMode: 'overlay' }} />
@@ -142,7 +142,7 @@ export function WaxSeal({ className = '', glint = true }: { className?: string; 
             fontFamily="'Cormorant Garamond',serif"
             fontStyle="italic"
             fontWeight="600"
-            stroke="#b8ad96"
+            stroke="#c4cbc2"
             strokeWidth="1"
             paintOrder="stroke"
             filter={url('emboss')}
@@ -156,7 +156,7 @@ export function WaxSeal({ className = '', glint = true }: { className?: string; 
 }
 
 /**
- * RSVP seal button — shaped like a wax seal in the envelope's dark maroon color.
+ * RSVP seal button — shaped like a wax seal in the envelope's olive green color.
  * Used for the "confirm attendance" button.
  */
 export function RsvpSeal({ className = '', children, onClick, href }: {
@@ -177,39 +177,39 @@ export function RsvpSeal({ className = '', children, onClick, href }: {
     <Tag className={`rsvp-seal ${className}`} {...linkProps as any}>
       <svg viewBox="0 0 200 200" className="rsvp-seal__svg" aria-hidden="true">
         <defs>
-          {/* Dark maroon wax — exact match envelope color #400707 */}
+          {/* Olive green wax — exact match envelope color #323D2E */}
           <radialGradient id={id('wax')} cx="36%" cy="30%" r="80%">
-            <stop offset="0" stopColor="#5a0a0a" />
-            <stop offset="0.16" stopColor="#4d0808" />
-            <stop offset="0.42" stopColor="#400707" />
-            <stop offset="0.7" stopColor="#300505" />
-            <stop offset="1" stopColor="#1a0202" />
+            <stop offset="0" stopColor="#485b40" />
+            <stop offset="0.16" stopColor="#3c4c35" />
+            <stop offset="0.42" stopColor="#323D2E" />
+            <stop offset="0.7" stopColor="#242e21" />
+            <stop offset="1" stopColor="#151b13" />
           </radialGradient>
           <radialGradient id={id('well')} cx="62%" cy="66%" r="78%">
-            <stop offset="0" stopColor="#4a0808" />
-            <stop offset="0.5" stopColor="#3b0606" />
-            <stop offset="1" stopColor="#250303" />
+            <stop offset="0" stopColor="#3a4933" />
+            <stop offset="0.5" stopColor="#2d3a28" />
+            <stop offset="1" stopColor="#1c2419" />
           </radialGradient>
           <linearGradient id={id('rimIn')} x1="0.15" y1="0.1" x2="0.85" y2="0.9">
-            <stop offset="0" stopColor="#1a0202" />
-            <stop offset="0.55" stopColor="#300505" stopOpacity="0.5" />
-            <stop offset="1" stopColor="#5a0a0a" />
+            <stop offset="0" stopColor="#151b13" />
+            <stop offset="0.55" stopColor="#242e21" stopOpacity="0.5" />
+            <stop offset="1" stopColor="#485b40" />
           </linearGradient>
           <linearGradient id={id('rimOut')} x1="0.15" y1="0.1" x2="0.85" y2="0.9">
-            <stop offset="0" stopColor="#660b0b" />
-            <stop offset="0.5" stopColor="#400707" stopOpacity="0.4" />
-            <stop offset="1" stopColor="#1a0202" />
+            <stop offset="0" stopColor="#556b4c" />
+            <stop offset="0.5" stopColor="#323D2E" stopOpacity="0.4" />
+            <stop offset="1" stopColor="#151b13" />
           </linearGradient>
           <linearGradient id={id('glyph')} x1="0.2" y1="0" x2="0.8" y2="1">
-            <stop offset="0" stopColor="#730d0d" />
-            <stop offset="0.38" stopColor="#5a0a0a" />
-            <stop offset="0.72" stopColor="#400707" />
-            <stop offset="1" stopColor="#250303" />
+            <stop offset="0" stopColor="#5c7352" />
+            <stop offset="0.38" stopColor="#485b40" />
+            <stop offset="0.72" stopColor="#323D2E" />
+            <stop offset="1" stopColor="#1c2419" />
           </linearGradient>
 
           <filter id={id('dome')} x="-10%" y="-10%" width="120%" height="120%" colorInterpolationFilters="sRGB">
             <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blur" />
-            <feSpecularLighting in="blur" surfaceScale="7" specularConstant="0.6" specularExponent="18" lightingColor="#ffcece" result="spec">
+            <feSpecularLighting in="blur" surfaceScale="7" specularConstant="0.6" specularExponent="18" lightingColor="#e2ede0" result="spec">
               <fePointLight x="48" y="28" z="190" />
             </feSpecularLighting>
             <feComposite in="spec" in2="SourceAlpha" operator="in" result="specIn" />
@@ -218,13 +218,13 @@ export function RsvpSeal({ className = '', children, onClick, href }: {
 
           <filter id={id('emboss')} x="-15%" y="-15%" width="130%" height="130%" colorInterpolationFilters="sRGB">
             <feGaussianBlur in="SourceAlpha" stdDeviation="0.9" result="b" />
-            <feSpecularLighting in="b" surfaceScale="2.4" specularConstant="0.8" specularExponent="14" lightingColor="#ffdddd" result="s">
+            <feSpecularLighting in="b" surfaceScale="2.4" specularConstant="0.8" specularExponent="14" lightingColor="#f0f7ef" result="s">
               <feDistantLight azimuth="225" elevation="42" />
             </feSpecularLighting>
             <feComposite in="s" in2="SourceAlpha" operator="in" result="si" />
             <feOffset in="SourceAlpha" dx="1.1" dy="1.6" result="o" />
             <feGaussianBlur in="o" stdDeviation="0.9" result="ob" />
-            <feFlood floodColor="#0f0101" floodOpacity="0.72" />
+            <feFlood floodColor="#0c120a" floodOpacity="0.75" />
             <feComposite in2="ob" operator="in" result="sh" />
             <feMerge>
               <feMergeNode in="sh" />

@@ -11,8 +11,9 @@ const NEXT: Partial<Record<Stage, Stage>> = { opening: 'rising', rising: 'handof
 const DURATION: Partial<Record<Stage, number>> = { opening: 4000, rising: 1400, handoff: 400, settle: 150 };
 
 export default function App() {
-  const [stage, setStage] = useState<Stage>('sealed');
-  const [ready, setReady] = useState(false);
+  const isDirectOpen = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('open') === 'true';
+  const [stage, setStage] = useState<Stage>(() => (isDirectOpen ? 'done' : 'sealed'));
+  const [ready, setReady] = useState(() => isDirectOpen);
   const [geo, setGeo] = useState(() => computeGeo(readViewport()));
   const music = useMusic();
   const { t } = useLang();

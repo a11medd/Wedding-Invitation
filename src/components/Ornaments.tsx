@@ -2,25 +2,25 @@ import { useSafeId } from '../lib/shapes';
 
 type SvgProps = { className?: string };
 
-/** Flourish divider in envelope burgundy */
+/** Flourish divider in envelope olive */
 export function Divider({ className = '' }: SvgProps) {
   const id = useSafeId('dv');
   return (
     <svg className={className} viewBox="0 0 260 24" fill="none" aria-hidden="true">
       <defs>
         <linearGradient id={`${id}-l`} x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0" stopColor="#400707" stopOpacity="0" />
-          <stop offset="1" stopColor="#400707" stopOpacity="0.85" />
+          <stop offset="0" stopColor="#323D2E" stopOpacity="0" />
+          <stop offset="1" stopColor="#323D2E" stopOpacity="0.85" />
         </linearGradient>
         <linearGradient id={`${id}-r`} x1="1" x2="0" y1="0" y2="0">
-          <stop offset="0" stopColor="#400707" stopOpacity="0" />
-          <stop offset="1" stopColor="#400707" stopOpacity="0.85" />
+          <stop offset="0" stopColor="#323D2E" stopOpacity="0" />
+          <stop offset="1" stopColor="#323D2E" stopOpacity="0.85" />
         </linearGradient>
         <linearGradient id={`${id}-g`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#2c0404" />
-          <stop offset="0.35" stopColor="#630d0d" />
-          <stop offset="0.6" stopColor="#400707" />
-          <stop offset="1" stopColor="#540a0a" />
+          <stop offset="0" stopColor="#1b2418" />
+          <stop offset="0.35" stopColor="#485b40" />
+          <stop offset="0.6" stopColor="#323D2E" />
+          <stop offset="1" stopColor="#263223" />
         </linearGradient>
       </defs>
       <path d="M6 12H95" stroke={`url(#${id}-l)`} strokeWidth="0.9" />
@@ -32,7 +32,7 @@ export function Divider({ className = '' }: SvgProps) {
         <circle cx="98.5" cy="12" r="1.7" />
         <circle cx="161.5" cy="12" r="1.7" />
       </g>
-      <circle cx="130" cy="12" r="1.5" fill="#f8f2e4" />
+      <circle cx="130" cy="12" r="1.5" fill="#ffffff" />
     </svg>
   );
 }
@@ -133,16 +133,16 @@ export function NoteIcon({ className = '' }: SvgProps) {
   );
 }
 
-/* ───────────── Symbol ornaments (❧ ✦ ◈ ♡) drawn in royal burgundy SVG ───────────── */
+/* ───────────── Symbol ornaments (❧ ✦ ◈ ♡) drawn in royal olive SVG ───────────── */
 
 function GoldDefs({ id }: { id: string }) {
   return (
     <defs>
       <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stopColor="#2c0404" />
-        <stop offset="0.35" stopColor="#630d0d" />
-        <stop offset="0.62" stopColor="#400707" />
-        <stop offset="1" stopColor="#540a0a" />
+        <stop offset="0" stopColor="#1b2418" />
+        <stop offset="0.35" stopColor="#485b40" />
+        <stop offset="0.62" stopColor="#323D2E" />
+        <stop offset="1" stopColor="#263223" />
       </linearGradient>
     </defs>
   );
@@ -180,7 +180,7 @@ export function FleuronRow({ center = 'heart', className = '' }: SvgProps & { ce
     <>
       <path d="M1 12.5C5 12.5 7.5 11 9.2 8.6" fill="none" stroke={g} strokeWidth="1" strokeLinecap="round" />
       <path d="M9.2 8.6C9.8 5.2 13.4 3.4 16.6 5.1 18.8 6.3 19.4 9.3 22.8 9.8 20.4 12.4 16.6 14.1 13.1 13.3 10.1 12.6 8.6 10.7 9.2 8.6Z" fill={g} />
-      <path d="M11 10.6C13.5 9.4 16.4 9.1 19.6 9.6" fill="none" stroke="#2c0404" strokeOpacity="0.45" strokeWidth="0.6" strokeLinecap="round" />
+      <path d="M11 10.6C13.5 9.4 16.4 9.1 19.6 9.6" fill="none" stroke="#1b2418" strokeOpacity="0.45" strokeWidth="0.6" strokeLinecap="round" />
       <path d="M4.4 12.3C4 14.6 5.4 16.4 7.4 16.2 8.8 16 9.2 14.4 8.1 13.8" fill="none" stroke={g} strokeWidth="0.9" strokeLinecap="round" />
     </>
   );
@@ -189,8 +189,8 @@ export function FleuronRow({ center = 'heart', className = '' }: SvgProps & { ce
       <GoldDefs id={id} />
       <defs>
         <linearGradient id={`${id}-l`} x1="0" x2="1">
-          <stop offset="0" stopColor="#400707" stopOpacity="0" />
-          <stop offset="1" stopColor="#400707" stopOpacity="0.85" />
+          <stop offset="0" stopColor="#323D2E" stopOpacity="0" />
+          <stop offset="1" stopColor="#323D2E" stopOpacity="0.85" />
         </linearGradient>
       </defs>
       <path d="M4 12H70" stroke={`url(#${id}-l)`} strokeWidth="0.8" />
