@@ -23,8 +23,6 @@ export interface Dict {
   venue: { aria: string; kicker: string; title: string; name: string; date: string; time: string; button: string };
   guidelines: { aria: string; kicker: string; title: string; subtitle: string; items: Item[]; colors: string[]; colorsAria: string };
   gratitude: { aria: string; title: string; text: string; rsvp: string; rsvpNote: string; whatsappMessage: string };
-  videoReveal: { saveTheDate: string; willBe: string; date: string; scrollDown: string };
-  moments: { aria: string; kicker: string; title: string; subtitle: string; photoAlt: string; caption: string };
   footer: { date: string; credits?: string };
   music: { play: string; mute: string };
 }
@@ -108,20 +106,6 @@ const en: Dict = {
     rsvpNote: 'Kindly confirm your attendance via WhatsApp',
     whatsappMessage: "Hello, I would like to confirm my attendance for Ahmed & Aya's Wedding.",
   },
-  videoReveal: {
-    saveTheDate: 'SAVE THE DATE',
-    willBe: 'Will Be Married',
-    date: '27 · 01 · 2027',
-    scrollDown: 'Scroll down to invitation',
-  },
-  moments: {
-    aria: 'Our Moments',
-    kicker: 'Memories',
-    title: 'Our Moments',
-    subtitle: 'A glimpse into our beautiful journey together',
-    photoAlt: 'Ahmed and Aya together',
-    caption: 'The beginning of forever',
-  },
   footer: { date: 'Wednesday · 27 January 2027', credits: 'Designed with love by Ahmed Osama' },
   music: { play: 'Play background music', mute: 'Mute background music' },
 };
@@ -129,7 +113,7 @@ const en: Dict = {
 const ar: Dict = {
   docTitle: 'أحمد & آية · حفل الزفاف · ٢٧.٠١.٢٠٢٧',
   toggle: { label: 'English', aria: 'View the invitation in English' },
-  invited: 'يسعدنا ويشرفنا دعوتكم',
+  invited: 'يسعدنا دعوتكم',
   heroInvite: {
     formal: 'يسعدنا ويشرفنا',
     script: 'دعوتكم',
@@ -203,20 +187,6 @@ const ar: Dict = {
     rsvp: 'تأكيد الحضور',
     rsvpNote: 'يُرجى تأكيد حضوركم عبر واتساب',
     whatsappMessage: 'مرحبًا، أودّ تأكيد حضوري لحفل زفاف أحمد & آية.',
-  },
-  videoReveal: {
-    saveTheDate: 'احفظوا التاريخ',
-    willBe: 'يتشرفان بدعوتكم',
-    date: '٢٧ · ٠١ · ٢٠٢٧',
-    scrollDown: 'انتقل إلى الدعوة',
-  },
-  moments: {
-    aria: 'لحظاتنا',
-    kicker: 'ذكريات',
-    title: 'لحظاتنا',
-    subtitle: 'لمحة من رحلتنا الجميلة معًا',
-    photoAlt: 'أحمد وآية معًا',
-    caption: 'بداية الأبد',
   },
   footer: { date: 'الأربعاء · ٢٧ يناير ٢٠٢٧', credits: 'صُمم بحب بواسطة أحمد أسامة' },
   music: { play: 'تشغيل الموسيقى', mute: 'كتم الموسيقى' },

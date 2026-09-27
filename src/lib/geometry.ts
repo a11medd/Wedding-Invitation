@@ -40,7 +40,7 @@ export function readViewport() {
 export function computeGeo({ vw, vh }: { vw: number; vh: number }): Geo {
   // Mobile: full viewport screen (<= 600px width)
   const isMobile = vw <= 600;
-  const W = isMobile ? vw : Math.round(Math.min(440, vw * 0.90));
+  const W = isMobile ? vw : Math.round(Math.min(420, vw * 0.94));
   const H = isMobile ? vh : Math.round(Math.min(vh * 0.88, W * 1.72));
 
   // Gatefold envelope meeting at exact center
@@ -48,12 +48,12 @@ export function computeGeo({ vw, vh }: { vw: number; vh: number }): Geo {
   const vTip = Math.round(H * 0.50);
 
   // Wax seal proportions - centered on the gatefold tab
-  const seal = Math.round(Math.min(W * (isMobile ? 0.32 : 0.35), isMobile ? 125 : 140));
+  const seal = Math.round(Math.min(W * (isMobile ? 0.34 : 0.38), isMobile ? 135 : 145));
   const sealCY = Math.round(H * 0.50);
   const sealTop = sealCY - Math.round(seal / 2);
-  const ctaTop = Math.round(sealCY + seal / 2 + (isMobile ? 22 : 28));
+  const ctaTop = Math.round(sealCY + seal / 2 + (isMobile ? 22 : 30));
 
-  const cardW = Math.round(Math.max(260, Math.min(vw - 28, 520)));
+  const cardW = Math.round(Math.max(240, Math.min(vw - 24, 520)));
   const innerW = Math.round(W * 0.90);
   const k = innerW / cardW;
   const cardLeft = Math.round((W - innerW) / 2);

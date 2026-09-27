@@ -1,30 +1,22 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { EnvelopeScene, type Stage } from './components/Envelope';
 import { InvitationCard } from './components/InvitationCard';
-import { VideoReveal } from './components/VideoReveal';
-import { OurMoments } from './components/OurMoments';
-import { Reveal } from './components/Reveal';
 import { Backdrop, Countdown, NamesDateVenue, Footer, Gratitude, Guidelines, LangToggle, MusicToggle, SaveTheDate, Schedule, Venue } from './components/Sections';
 import { useLang } from './i18n';
 import { useMusic } from './hooks/useMusic';
 import { computeGeo, readViewport } from './lib/geometry';
 
-/** Unboxing choreography: majestic slow envelope opening, hero text reveal, and dissolve */
-const NEXT: Partial<Record<Stage, Stage>> = { opening: 'fading', fading: 'done' };
-const DURATION: Partial<Record<Stage, number>> = { opening: 3800, fading: 700 };
+/** Unboxing choreography: relaxed, elegant timing */
+const NEXT: Partial<Record<Stage, Stage>> = { opening: 'rising', rising: 'handoff', handoff: 'settle', settle: 'done' };
+const DURATION: Partial<Record<Stage, number>> = { opening: 4000, rising: 1400, handoff: 400, settle: 150 };
 
 export default function App() {
-  const [stage, setStage] = useState<Stage>(() => {
-    if (typeof window !== 'undefined') {
-      const s = new URLSearchParams(window.location.search).get('stage') as Stage;
-      if (s === 'opening' || s === 'fading' || s === 'done') return s;
-    }
-    return 'sealed';
-  });
+  const [stage, setStage] = useState<Stage>('sealed');
   const [ready, setReady] = useState(false);
   const [geo, setGeo] = useState(() => computeGeo(readViewport()));
   const music = useMusic();
   const { t } = useLang();
+  const pageCardRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef(stage);
   stageRef.current = stage;
 
@@ -67,10 +59,8 @@ export default function App() {
   // Lock scrolling until the invitation is fully revealed.
   useEffect(() => {
     document.documentElement.classList.toggle('is-locked', stage !== 'done');
-    if (stage === 'done') {
-      window.scrollTo(0, 0);
-      setGeo(computeGeo(readViewport()));
-    }
+    if (stage === 'rising') window.scrollTo(0, 0);
+    if (stage === 'done') setGeo(computeGeo(readViewport()));
   }, [stage]);
 
   const open = useCallback(() => {
@@ -84,42 +74,33 @@ export default function App() {
     }
   }, [music]);
 
-  const pageVisible = stage === 'fading' || stage === 'done';
+  const pageVisible = stage === 'handoff' || stage === 'settle' || stage === 'done';
 
   return (
     <>
       <Backdrop />
 
       <main className={`page${pageVisible ? ' is-visible' : ''}`} aria-hidden={!pageVisible}>
-          <div className="page-header">
-            <p className="eyebrow-lux lang-fade">
-              <span className="eyebrow-line" />
-              <span className="eyebrow-text">{t.invited}</span>
-              <span className="eyebrow-line" />
-            </p>
+          <p className="eyebrow-lux lang-fade">
+            <span className="eyebrow-line" />
+            <span className="eyebrow-text">{t.invited}</span>
+            <span className="eyebrow-line" />
+          </p>
+
+          <div ref={pageCardRef} className="page-card" style={{ width: geo.cardW }}>
+            <InvitationCard />
           </div>
-
-          <VideoReveal />
-
-          <section className="section section--card" aria-label={t.invite.title}>
-            <Reveal>
-              <div className="page-card" style={{ width: geo.cardW }}>
-                <InvitationCard />
-              </div>
-            </Reveal>
-          </section>
 
           <Countdown />
           <SaveTheDate />
           <Schedule />
           <Venue />
           <Guidelines />
-          <OurMoments />
           <Gratitude />
           <NamesDateVenue />
           <Footer />
         </main>
-      {stage !== 'done' && <EnvelopeScene stage={stage} geo={geo} ready={ready} onOpen={open} />}
+      {stage !== 'done' && <EnvelopeScene stage={stage} geo={geo} ready={ready} onOpen={open} targetRef={pageCardRef} />}
 
       <MusicToggle status={music.status} visible={stage !== 'sealed'} onToggle={music.toggle} />
       <LangToggle visible={stage !== 'sealed'} />

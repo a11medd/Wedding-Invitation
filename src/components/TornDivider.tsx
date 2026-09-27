@@ -101,9 +101,9 @@ export function TornDivider({ variant = 1, className = '' }: TornDividerProps) {
       >
         <defs>
           <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
-            <stop offset="50%" stopColor="#f0f4f0" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#e2e8e2" stopOpacity="0.15" />
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
+            <stop offset="50%" stopColor="#f7f0e3" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#ebdcc5" stopOpacity="0.1" />
           </linearGradient>
         </defs>
 

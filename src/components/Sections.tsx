@@ -358,6 +358,7 @@ export function Footer() {
 /* ───────────────────────── Language toggle ───────────────────────── */
 
 export function LangToggle({ visible = true }: { visible?: boolean }) {
+  if (!visible) return null;
   const { t, lang, toggle } = useLang();
   const target = lang === 'en' ? 'ar' : 'en';
   return (
@@ -374,6 +375,7 @@ export function LangToggle({ visible = true }: { visible?: boolean }) {
 /* ───────────────────────── Music toggle ───────────────────────── */
 
 export function MusicToggle({ status, visible, onToggle }: { status: MusicStatus; visible: boolean; onToggle: () => void }) {
+  if (!visible) return null;
   const { t } = useLang();
   const playing = status === 'playing';
   const [toast, setToast] = useState(false);

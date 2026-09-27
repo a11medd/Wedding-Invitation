@@ -10,7 +10,7 @@ export const EVENT = {
 } as const;
 
 export const DRESS_COLORS = [
-  { color: '#323D2E', shade: '#1e261b' },
+  { color: '#6b1626', shade: '#3c0a14' },
   { color: '#5f6a34', shade: '#343b17' },
   { color: '#1a1a1a', shade: '#050505' },
 ] as const;

@@ -1,26 +1,64 @@
-import { useRef, type CSSProperties, type KeyboardEvent } from 'react';
+import { useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type RefObject } from 'react';
 import type { Geo } from '../lib/geometry';
 import { useLang } from '../i18n';
+import { InvitationCard } from './InvitationCard';
 import { Flourish } from './Ornaments';
 import { WaxSeal } from './WaxSeal';
-import oliveEnvelope from '../assets/olive-envelope.jpg';
 import envelopeBack from '../assets/envelope-back.jpg';
 import leftFlapImg from '../assets/envelope-left-flap.png';
 import rightFlapImg from '../assets/envelope-right-flap.png';
 
-export type Stage = 'sealed' | 'opening' | 'fading' | 'done';
+export type Stage = 'sealed' | 'opening' | 'rising' | 'handoff' | 'settle' | 'done';
 
 interface SceneProps {
   stage: Stage;
   geo: Geo;
   ready: boolean;
   onOpen: () => void;
+  targetRef: RefObject<HTMLDivElement | null>;
 }
 
-export function EnvelopeScene({ stage, geo, ready, onOpen }: SceneProps) {
-  const { t } = useLang();
+export function EnvelopeScene({ stage, geo, ready, onOpen, targetRef }: SceneProps) {
+  const { t, lang } = useLang();
   const envRef = useRef<HTMLDivElement>(null);
-  const { W, H, seal, sealTop, ctaTop, drop } = geo;
+  const [handoff, setHandoff] = useState<{ x: number; y: number } | null>(null);
+  const late = stage === 'handoff' || stage === 'settle';
+  const { W, H, seal, sealTop, ctaTop, cardW, drop } = geo;
+
+  // Measure where the real card sits on the page early to avoid mid-animation layout thrashing
+  useLayoutEffect(() => {
+    const measure = () => {
+      const env = envRef.current;
+      const target = targetRef.current;
+      if (!env || !target) return;
+      const e = env.getBoundingClientRect();
+      const t = target.getBoundingClientRect();
+      if (t.width > 0 && e.width > 0) {
+        setHandoff({ x: Math.round(t.left - e.left), y: Math.round(t.top - e.top) });
+      }
+    };
+    measure();
+    const handleResize = () => measure();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [targetRef, stage]);
+
+  const vh = typeof window !== 'undefined' ? (window.visualViewport?.height || window.innerHeight) : 900;
+  const isPreRise = stage === 'sealed' || stage === 'opening';
+
+  // Target coordinates match the natural page-card position in scale(1)
+  const fallbackX = Math.round((W - cardW) / 2);
+  const fallbackY = Math.max(16, Math.round(110 - (vh - H) / 2));
+  const targetX = handoff && handoff.x > 0 ? handoff.x : fallbackX;
+  const targetY = handoff && handoff.y > 0 ? handoff.y : fallbackY;
+  // Position card just below the bottom of the screen inside envelope coordinates
+  const envTop = (vh - H) / 2;
+  const offscreenY = Math.max(H + 40, Math.round(vh - envTop + 40));
+
+  // The card rises in its natural size (scale(1)) directly from bottom offscreen to its final place
+  const cardTransform = isPreRise
+    ? `translate3d(${targetX}px, ${offscreenY}px, 0)`
+    : `translate3d(${targetX}px, ${targetY}px, 0)`;
 
   const vars = {
     '--w': `${W}px`,
@@ -41,6 +79,12 @@ export function EnvelopeScene({ stage, geo, ready, onOpen }: SceneProps) {
 
   return (
     <div className={`scene stage-${stage}${ready ? ' is-ready' : ''}`} style={vars} dir="ltr">
+      {/* "You are cordially invited" announcement */}
+      <div className="invited-hero" aria-hidden={stage === 'sealed'} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+        <div className="invited-hero__formal">{t.heroInvite.formal}</div>
+        <div className="invited-hero__script">{t.heroInvite.script}</div>
+      </div>
+
       <div className="env-float">
         <div className="env-shift">
           <div
@@ -56,20 +100,41 @@ export function EnvelopeScene({ stage, geo, ready, onOpen }: SceneProps) {
             {/* Ambient drop shadow */}
             <div className="env-shadow" />
 
-            {/* Envelope Back / Interior Lining */}
+            {/* Envelope Back / Interior */}
             <div className="env-back">
               <img src={envelopeBack} alt="" className="env-back__img" draggable={false} />
             </div>
 
-            {/* "You are cordially invited" / "يسعدنا ويشرفنا" Hero announcement lockup */}
-            <div className="invited-hero" aria-hidden={stage === 'sealed'}>
-              <div className="invited-hero__formal">{t.heroInvite.formal}</div>
-              <div className="invited-hero__script">{t.heroInvite.script}</div>
-            </div>
-
-            {/* Pristine closed envelope front (visible when sealed for 100% seamless photo look) */}
-            <div className="env-front-sealed" aria-hidden="true">
-              <img src={oliveEnvelope} alt="" className="env-front__img" draggable={false} />
+            {/* The invitation card inside the envelope */}
+            <div
+              className="env-card-wrap"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                zIndex: 4,
+                pointerEvents: 'none',
+              }}
+            >
+              <div
+                className="card-preview"
+                style={{
+                  transform: cardTransform,
+                  width: cardW,
+                  transformOrigin: 'top left',
+                  transition: 'transform 1.4s cubic-bezier(0.22, 1, 0.36, 1)',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  opacity: isPreRise ? 0 : 1,
+                  willChange: 'transform',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  pointerEvents: late ? 'auto' : 'none',
+                }}
+                aria-hidden="true"
+              >
+                <InvitationCard preview={true} />
+              </div>
             </div>
 
             {/* LEFT FLAP */}
@@ -79,18 +144,25 @@ export function EnvelopeScene({ stage, geo, ready, onOpen }: SceneProps) {
               </div>
             </div>
 
-            {/* RIGHT FLAP (with white wax seal affixed) */}
+            {/* RIGHT FLAP (with wax seal affixed) */}
             <div className="env-gate-flap env-gate-flap--right" aria-hidden="true">
               <div className="env-gate-flap__face env-gate-flap__face--front">
                 <img src={rightFlapImg} alt="" className="env-flap-art" draggable={false} />
               </div>
 
-              {/* White wax seal mounted directly ON the right flap tab */}
+              {/* Wax seal mounted directly ON the right flap */}
               <div className="flap-seal">
+                <span className="seal-halo" />
+                <span className="seal-burst" />
                 <div className="seal-inner">
                   <WaxSeal />
                 </div>
               </div>
+            </div>
+
+            {/* Soft light sheen */}
+            <div className="env-sheen" aria-hidden="true">
+              <span />
             </div>
 
             {/* CTA Prompt ("اضغط لفتح الدعوة") */}
