@@ -29,7 +29,7 @@ export interface Dict {
 
 const en: Dict = {
   docTitle: 'Ahmed & Aya · The Wedding Celebration · 27.01.2027',
-  toggle: { label: 'E | ع', aria: 'عرض الدعوة باللغة العربية' },
+  toggle: { label: 'ع', aria: 'عرض الدعوة باللغة العربية' },
   invited: 'You are cordially invited',
   heroInvite: {
     formal: 'You are cordially',
@@ -112,7 +112,7 @@ const en: Dict = {
 
 const ar: Dict = {
   docTitle: 'أحمد & آية · حفل الزفاف · ٢٧.٠١.٢٠٢٧',
-  toggle: { label: 'E | ع', aria: 'View the invitation in English' },
+  toggle: { label: 'E', aria: 'View the invitation in English' },
   invited: 'يسعدنا دعوتكم',
   heroInvite: {
     formal: 'يسعدنا ويشرفنا',
