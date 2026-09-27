@@ -359,7 +359,7 @@ export function Footer() {
 
 export function LangToggle({ visible = true }: { visible?: boolean }) {
   if (!visible) return null;
-  const { t, lang, toggle } = useLang();
+  const { t, lang, toggle, switchLang } = useLang();
   const target = lang === 'en' ? 'ar' : 'en';
   return (
     <button type="button" className={`lang-btn${visible ? ' is-visible' : ''}`} onClick={toggle} aria-label={t.toggle.aria} lang={target}>
@@ -367,7 +367,27 @@ export function LangToggle({ visible = true }: { visible?: boolean }) {
         <circle cx="12" cy="12" r="8.8" />
         <path d="M3.4 12h17.2M12 3.2c2.4 2.4 3.6 5.4 3.6 8.8s-1.2 6.4-3.6 8.8M12 3.2C9.6 5.6 8.4 8.6 8.4 12s1.2 6.4 3.6 8.8" />
       </svg>
-      <span className="lang-btn__label">{t.toggle.label}</span>
+      <span className="lang-btn__label" aria-hidden="true">
+        <span
+          className={`lang-opt lang-opt--en${lang === 'en' ? ' is-active' : ''}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            switchLang('en');
+          }}
+        >
+          E
+        </span>
+        <span className="lang-sep">|</span>
+        <span
+          className={`lang-opt lang-opt--ar${lang === 'ar' ? ' is-active' : ''}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            switchLang('ar');
+          }}
+        >
+          ع
+        </span>
+      </span>
     </button>
   );
 }
