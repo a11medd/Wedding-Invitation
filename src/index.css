@@ -21,7 +21,7 @@
 }
 
 html {
-  background: #f8f7f4;
+  background: #ffffff;
   scrollbar-gutter: stable;
   -webkit-text-size-adjust: 100%;
 }
@@ -32,7 +32,7 @@ html.is-locked body {
 }
 body {
   min-height: 100%;
-  background: #f8f7f4;
+  background: #ffffff;
   color: #323D2E;
   font-family: var(--font-garamond);
   -webkit-font-smoothing: antialiased;
@@ -46,7 +46,7 @@ body {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   Backdrop — solid warm cream
+   Backdrop — pure white
    ════════════════════════════════════════════════════════════════ */
 .backdrop {
   position: fixed;
@@ -54,7 +54,7 @@ body {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background: #f8f7f4;
+  background: #ffffff;
 }
 .backdrop__texture {
   display: none;
@@ -175,7 +175,7 @@ body {
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  z-index: 1;
+  z-index: 3;
   opacity: 0;
   visibility: hidden;
   will-change: transform, opacity;
@@ -190,9 +190,9 @@ body {
   pointer-events: none;
 }
 
-/* Entrance when envelope opens: emerges as flaps part, holds clearly, then vanishes */
+/* Entrance when envelope opens: emerges as flaps part slowly, holds clearly, then vanishes */
 .scene.stage-opening .invited-hero {
-  animation: hero-appear-and-vanish 4s cubic-bezier(0.25, 1, 0.5, 1) both;
+  animation: hero-appear-and-vanish 3.8s cubic-bezier(0.25, 1, 0.5, 1) both;
 }
 
 @keyframes hero-appear-and-vanish {
@@ -201,22 +201,22 @@ body {
     transform: translate3d(-50%, -50%, 0) scale(0.92);
     visibility: hidden;
   }
-  10% {
+  8% {
     opacity: 0;
     transform: translate3d(-50%, -50%, 0) scale(0.92);
     visibility: visible;
   }
-  26% {
+  24% {
     opacity: 1;
     transform: translate3d(-50%, -50%, 0) scale(1);
     visibility: visible;
   }
-  68% {
+  72% {
     opacity: 1;
     transform: translate3d(-50%, -50%, 0) scale(1);
     visibility: visible;
   }
-  88%, 100% {
+  92%, 100% {
     opacity: 0;
     transform: translate3d(-50%, -50%, 0) scale(0.96);
     visibility: hidden;
@@ -232,52 +232,58 @@ body {
   pointer-events: none !important;
 }
 
-/* Formal serif upper line: "YOU ARE CORDIALLY" / "يسعدنا ويشرفنا" in envelope burgundy */
+/* Formal serif upper line: "YOU ARE CORDIALLY" / "يسعدنا ويشرفنا" in white foil */
 .invited-hero__formal {
   font-family: var(--font-cinzel), 'Cinzel', serif;
   font-size: clamp(14px, 3.8vw, 22px);
   font-weight: 600;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #323D2E;
+  color: #ffffff;
   text-align: center;
   line-height: 1.3;
   padding-left: 0.28em;
   white-space: nowrap;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.35);
 }
 
-/* Casual cursive script bottom line: "invited" / "دعوتكم" in envelope burgundy */
+/* Casual cursive script bottom line: "invited" / "دعوتكم" in white foil */
 .invited-hero__script {
   font-family: 'Dancing Script', 'Satisfy', cursive;
   font-size: clamp(52px, 13.5vw, 92px);
   font-weight: 700;
-  color: #323D2E;
+  color: #ffffff;
   text-align: center;
   line-height: 1;
   margin-top: clamp(4px, 1.1vw, 10px);
   letter-spacing: 0.02em;
   text-transform: lowercase;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85), 0 0 30px rgba(255, 255, 255, 0.4);
 }
 
 /* Arabic adjustments */
 html[lang="ar"] .invited-hero__formal {
   font-family: var(--font-ar-formal);
-  font-size: clamp(18px, 4.4vw, 28px);
+  font-size: clamp(20px, 5.2vw, 32px);
   font-weight: 700;
   letter-spacing: 0 !important;
-  word-spacing: 0.14em;
+  word-spacing: 0.16em;
   text-transform: none;
   padding-left: 0;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85), 0 0 20px rgba(255, 255, 255, 0.4);
 }
 
 html[lang="ar"] .invited-hero__script {
   font-family: var(--font-ar-ruqaa);
-  font-size: clamp(52px, 13.5vw, 92px);
+  font-size: clamp(56px, 15vw, 100px);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: 0;
-  margin-top: clamp(2px, 0.8vw, 8px);
+  margin-top: clamp(4px, 1vw, 12px);
   text-transform: none;
+  color: #ffffff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 255, 255, 0.45);
 }
 
 .env-float {
@@ -347,11 +353,11 @@ html[lang="ar"] .invited-hero__script {
   background-blend-mode: normal, soft-light, multiply;
 }
 
-/* Luxury warm ivory & champagne liner */
+/* Luxury porcelain white & subtle sage liner */
 .liner {
-  background-color: #f7f1e1;
+  background-color: #f8faf8;
   background-image:
-    linear-gradient(118deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 246, 215, 0.4) 30%, rgba(50, 61, 46, 0.3) 50%, rgba(35, 45, 32, 0.25) 74%, rgba(255, 236, 190, 0.5) 100%),
+    linear-gradient(118deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 250, 248, 0.5) 30%, rgba(50, 61, 46, 0.18) 50%, rgba(35, 45, 32, 0.12) 74%, rgba(255, 255, 255, 0.6) 100%),
     var(--tex-damask);
   background-size:
     100% 100%,
@@ -422,12 +428,12 @@ html[lang="ar"] .invited-hero__script {
 .env-gate-flap--left {
   z-index: 6;
   transform: translate3d(0, 0, 2px);
-  transition: transform 0.95s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.8s ease;
+  transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s ease;
 }
 .env-gate-flap--right {
   z-index: 8;
   transform: translate3d(0, 0, 4px);
-  transition: transform 0.95s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.8s ease;
+  transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s ease;
 }
 .scene:not(.stage-sealed) .env-gate-flap--left {
   transform: translate3d(-105%, 0, 2px) rotateY(-15deg);
@@ -569,7 +575,7 @@ html[lang="ar"] .scene-eyebrow {
   flex-direction: column;
   align-items: center;
   pointer-events: none;
-  color: #fff2d6;
+  color: #ffffff;
   transition: opacity 0.45s ease;
 }
 .env-cta__fade {
@@ -615,29 +621,49 @@ html[lang="ar"] .scene-eyebrow {
 .scene {
   transition: opacity 0.7s ease;
 }
-.scene.stage-opening .env-float {
-  animation: env-dissolve 0.95s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-@keyframes env-dissolve {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  35% {
-    opacity: 1;
-    transform: scale(1.015);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.05);
-  }
-}
 .scene.stage-fading {
   opacity: 0;
   pointer-events: none;
+  transition: opacity 0.7s ease;
 }
 .scene.stage-done {
   display: none !important;
+}
+
+/* Mobile full-screen envelope */
+@media (max-width: 600px) {
+  .scene {
+    padding: 0;
+  }
+  .env-float {
+    width: 100vw;
+    height: 100%;
+  }
+  .scene.stage-sealed .env-float {
+    animation: none;
+  }
+  .env-shift {
+    width: 100%;
+    height: 100%;
+  }
+  .envelope {
+    width: 100vw !important;
+    height: 100% !important;
+    min-height: 100svh;
+    min-height: 100dvh;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .env-shadow {
+    display: none !important;
+  }
+  .env-back,
+  .env-front-sealed {
+    border-radius: 0 !important;
+  }
+  .env-cta {
+    top: calc(50% + var(--seal) / 2 + 18px);
+  }
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -769,7 +795,7 @@ html[lang="ar"] .scene-eyebrow {
   position: relative;
   padding: 1.5px;
   border-radius: 50% 50% 12px 12px / 118px 118px 12px 12px;
-  background: linear-gradient(140deg, #7a5a20 0%, #efd690 20%, #a47b33 40%, #fff2c8 55%, #b28a3e 72%, #eed592 88%, #7d5d22 100%);
+  background: linear-gradient(140deg, #1b2219 0%, #323D2E 20%, #465540 40%, #5a6b52 55%, #3d4b38 72%, #323D2E 88%, #1b2219 100%);
   box-shadow:
     0 18px 34px -16px rgba(40, 26, 6, 0.75),
     0 4px 10px -4px rgba(40, 26, 6, 0.5);
@@ -881,8 +907,8 @@ html[lang="ar"] .scene-eyebrow {
 .hero-cine__sparkles i {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, #fffaf0 0%, #f3d9a0 45%, rgba(243, 217, 160, 0) 72%);
-  box-shadow: 0 0 6px 1px rgba(255, 228, 170, 0.55);
+  background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0.7) 45%, rgba(255, 255, 255, 0) 72%);
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.55);
   opacity: 0;
   animation-name: cine-sparkle;
   animation-timing-function: ease-in-out;
@@ -917,7 +943,7 @@ html[lang="ar"] .scene-eyebrow {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(60% 26% at 50% 12%, rgba(255, 214, 140, 0.16), rgba(255, 214, 140, 0) 70%),
+    radial-gradient(60% 26% at 50% 12%, rgba(50, 61, 46, 0.16), rgba(255, 214, 140, 0) 70%),
     radial-gradient(90% 40% at 50% 0%, rgba(60, 40, 12, 0.35), rgba(0, 0, 0, 0) 80%);
 }
 .hero-shade {
@@ -932,7 +958,7 @@ html[lang="ar"] .scene-eyebrow {
   position: absolute;
   inset: 8px;
   z-index: 2;
-  border: 1px solid rgba(236, 206, 138, 0.55);
+  border: 1px solid rgba(50, 61, 46, 0.45);
   border-radius: 50% 50% 6px 6px / 109px 109px 6px 6px;
   pointer-events: none;
   box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.35);
@@ -954,7 +980,7 @@ html[lang="ar"] .scene-eyebrow {
   letter-spacing: 0.26em;
   padding-left: 0.26em;
   font-weight: 600;
-  color: #f6e8c8;
+  color: #ffffff;
   text-transform: uppercase;
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.9),
@@ -1135,7 +1161,7 @@ html[lang="ar"] .scene-eyebrow {
   background-color: var(--section-bg);
 }
 .section:nth-of-type(even) {
-  --section-bg: #f8f7f4;
+  --section-bg: #f8faf8;
   background-color: var(--section-bg);
 }
 
@@ -1249,7 +1275,7 @@ html[lang="ar"] .scene-eyebrow {
   position: relative;
   overflow: hidden;
   border-radius: 22px;
-  background: linear-gradient(165deg, #fffdf8 0%, #faf3e6 55%, #f4eade 100%);
+  background: linear-gradient(165deg, #ffffff 0%, #fbfdfb 55%, #f4f6f4 100%);
   border: 1.5px solid rgba(50, 61, 46, 0.35);
   box-shadow:
     0 24px 50px -18px rgba(50, 61, 46, 0.25),
@@ -1313,7 +1339,7 @@ html[lang="ar"] .scene-eyebrow {
   aspect-ratio: 1 / 1.32;
   border-radius: 18px;
   overflow: hidden;
-  background: linear-gradient(150deg, #ffffff 0%, #fbf6ec 60%, #f4ead8 100%);
+  background: linear-gradient(150deg, #ffffff 0%, #fbfdfb 60%, #f4f6f4 100%);
   border: 1.5px solid rgba(50, 61, 46, 0.35);
   box-shadow:
     0 14px 28px -10px rgba(50, 61, 46, 0.35),
@@ -1440,7 +1466,7 @@ html[lang="ar"] .scene-eyebrow {
   width: 116%;
   height: 116%;
   fill: #323D2E;
-  stroke: #d4af37;
+  stroke: #323D2E;
   stroke-width: 1.2;
   filter: drop-shadow(0 0 8px rgba(50, 61, 46, 0.45));
   animation: heart-beat 2.4s ease-in-out infinite;
@@ -1465,7 +1491,7 @@ html[lang="ar"] .scene-eyebrow {
   font-family: var(--font-garamond);
   font-style: italic;
   font-size: 17px;
-  color: #551212;
+  color: #323D2E;
 }
 
 /* ── Schedule ── */
@@ -1474,7 +1500,7 @@ html[lang="ar"] .scene-eyebrow {
   margin-top: 22px;
   padding: 26px 18px 28px;
   border-radius: 22px;
-  background: linear-gradient(165deg, #fffdf8 0%, #faf3e6 55%, #f4eade 100%);
+  background: linear-gradient(165deg, #ffffff 0%, #fbfdfb 55%, #f4f6f4 100%);
   border: 1.5px solid rgba(50, 61, 46, 0.35);
   box-shadow:
     0 24px 50px -18px rgba(50, 61, 46, 0.25),
@@ -1522,7 +1548,7 @@ html[lang="ar"] .scene-eyebrow {
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.16em;
-  color: #701010;
+  color: #323D2E;
 }
 .timeline-title {
   margin-top: 8px;
@@ -1541,7 +1567,7 @@ html[lang="ar"] .scene-eyebrow {
   font-family: var(--font-garamond);
   font-style: italic;
   font-size: 18px;
-  color: #551212;
+  color: #323D2E;
 }
 
 /* ── Venue arch ── */
@@ -1550,16 +1576,16 @@ html[lang="ar"] .scene-eyebrow {
   margin: 24px auto 0;
   padding: 1.5px;
   border-radius: 50% 50% 24px 24px / 150px 150px 24px 24px;
-  background: linear-gradient(140deg, rgba(160, 115, 38, 0.95), #efd690 22%, rgba(180, 135, 48, 0.85) 42%, #fff2c8 56%, rgba(190, 145, 52, 0.85) 74%, #eed592 90%);
-  box-shadow: 0 30px 60px -25px rgba(25, 2, 2, 0.85);
+  background: linear-gradient(140deg, #1b2219 0%, #323D2E 20%, #465540 40%, #5a6b52 55%, #3d4b38 72%, #323D2E 88%, #1b2219 100%);
+  box-shadow: 0 30px 60px -25px rgba(50, 61, 46, 0.35);
 }
 .venue-arch__inner {
   position: relative;
   padding: 70px 22px 28px;
   border-radius: 50% 50% 23px 23px / 148.5px 148.5px 23px 23px;
   background:
-    radial-gradient(90% 55% at 50% 0%, rgba(255, 245, 220, 0.5), transparent 70%),
-    linear-gradient(180deg, #fffdf8 0%, #f7f0e0 100%);
+    radial-gradient(90% 55% at 50% 0%, rgba(255, 255, 255, 0.6), transparent 70%),
+    linear-gradient(180deg, #ffffff 0%, #f8faf8 100%);
   overflow: hidden;
   color: #252e22;
 }
@@ -1608,7 +1634,7 @@ html[lang="ar"] .scene-eyebrow {
 .venue-meta {
   font-family: var(--font-garamond);
   font-size: 18px;
-  color: #481212;
+  color: #323D2E;
 }
 .venue-meta--time {
   display: flex;
@@ -1619,7 +1645,7 @@ html[lang="ar"] .scene-eyebrow {
   font-family: var(--font-cinzel);
   font-size: 14px;
   letter-spacing: 0.16em;
-  color: #701010;
+  color: #323D2E;
 }
 .venue-meta__icon {
   width: 16px;
@@ -1684,7 +1710,7 @@ html[lang="ar"] .scene-eyebrow {
   font-family: var(--font-garamond);
   font-size: 16px;
   line-height: 1.5;
-  color: #481010;
+  color: #323D2E;
   text-wrap: pretty;
 }
 .swatches {
@@ -1708,8 +1734,8 @@ html[lang="ar"] .scene-eyebrow {
   border-radius: 50%;
   background: radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0) 42%), radial-gradient(circle at 50% 50%, var(--c), var(--s));
   box-shadow:
-    0 0 0 1.5px rgba(233, 205, 140, 0.9),
-    0 0 0 5px rgba(233, 205, 140, 0.1),
+    0 0 0 1.5px rgba(50, 61, 46, 0.8),
+    0 0 0 5px rgba(50, 61, 46, 0.12),
     0 8px 16px rgba(0, 0, 0, 0.55);
 }
 .swatch-name {
@@ -1718,7 +1744,7 @@ html[lang="ar"] .scene-eyebrow {
   font-weight: 700;
   letter-spacing: 0.14em;
   line-height: 1.4;
-  color: #551010;
+  color: #323D2E;
   text-transform: uppercase;
 }
 
@@ -1730,8 +1756,8 @@ html[lang="ar"] .scene-eyebrow {
   padding: 1.5px;
   isolation: isolate;
   text-decoration: none;
-  background: linear-gradient(115deg, #7c5c22, #f5e2a6 22%, #b08a3e 40%, #fff4d2 55%, #b88f42 72%, #f5e2a6 88%, #7c5c22);
-  box-shadow: 0 14px 30px -10px rgba(35, 4, 4, 0.65);
+  background: linear-gradient(115deg, #1b2219 0%, #323D2E 24%, #465540 44%, #5a6b52 64%, #323D2E 84%, #1b2219 100%);
+  box-shadow: 0 14px 30px -10px rgba(50, 61, 46, 0.35);
   transition: transform 0.25s var(--ease-soft);
   -webkit-tap-highlight-color: transparent;
 }
@@ -1741,7 +1767,7 @@ html[lang="ar"] .scene-eyebrow {
   inset: -8px -6px;
   z-index: -1;
   border-radius: inherit;
-  background: radial-gradient(60% 110% at 50% 50%, rgba(233, 200, 120, 0.42), rgba(233, 200, 120, 0) 72%);
+  background: radial-gradient(60% 110% at 50% 50%, rgba(50, 61, 46, 0.35), rgba(50, 61, 46, 0) 72%);
   filter: blur(10px);
   opacity: 0.55;
   animation: glow-breathe 3.6s ease-in-out infinite;
@@ -1898,12 +1924,12 @@ html[lang="ar"] .scene-eyebrow {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  color: #f7e6bc;
+  color: #ffffff;
 }
 .rsvp-seal-icon {
   width: 22px;
   height: 22px;
-  color: #f7e6bc;
+  color: #ffffff;
 }
 .rsvp-seal-label {
   font-family: var(--font-cinzel);
@@ -1912,7 +1938,7 @@ html[lang="ar"] .scene-eyebrow {
   letter-spacing: 0.18em;
   padding-left: 0.18em;
   text-transform: uppercase;
-  color: #f7e6bc;
+  color: #ffffff;
   text-align: center;
   max-width: 80px;
   line-height: 1.4;
@@ -2029,7 +2055,7 @@ html[lang="ar"] .rsvp-seal-label {
   font-family: var(--font-garamond);
   font-style: italic;
   font-size: 19px;
-  color: #551212;
+  color: #323D2E;
 }
 .footer-venue__icon {
   width: 16px;
@@ -3008,7 +3034,7 @@ html, body {
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  transform: scale(1.68);
+  transform: scale(1.14);
   transform-origin: center center;
   pointer-events: none;
 }
@@ -3205,19 +3231,8 @@ html, body {
 
 /* ── Entrance animation ── */
 .video-reveal__content > * {
-  opacity: 0;
-  transform: translate3d(0, 18px, 0);
-  transition: opacity 1.2s var(--ease-soft), transform 1.2s var(--ease-soft);
-}
-.video-reveal.is-playing .video-reveal__content > * {
   opacity: 1;
   transform: none;
-}
-.video-reveal.is-playing .video-reveal__center {
-  transition-delay: 0.3s;
-}
-.video-reveal.is-playing .video-reveal__bottom {
-  transition-delay: 0.6s;
 }
 
 /* Typography for Arabic video reveal */
@@ -3238,40 +3253,42 @@ html[lang="ar"] .video-reveal__amp {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .page {
-    padding-top: calc(env(safe-area-inset-top, 0px) + 50px);
+    padding-top: max(16px, calc(env(safe-area-inset-top, 0px) + 12px));
   }
   .page-header {
-    padding: 0 16px 10px;
+    padding: 0 16px 8px;
   }
   .video-reveal {
-    width: 100%;
-    max-width: none;
-    height: calc(100svh - env(safe-area-inset-top, 0px) - 78px);
-    min-height: calc(100svh - env(safe-area-inset-top, 0px) - 78px);
-    max-height: none;
-    aspect-ratio: unset;
-    border-radius: 0;
-    margin-bottom: 0;
-    box-shadow: none;
-    border-top: 1px solid rgba(50, 61, 46, 0.3);
-    border-bottom: 1px solid rgba(50, 61, 46, 0.3);
+    width: min(calc(100vw - 32px), 320px);
+    margin-inline: auto !important;
+    height: auto;
+    aspect-ratio: 9 / 16;
+    max-height: min(60svh, 460px);
+    min-height: unset;
+    border-radius: 18px;
+    box-shadow:
+      0 16px 36px -12px rgba(50, 61, 46, 0.35),
+      0 0 0 1.5px rgba(50, 61, 46, 0.45);
+    border-top: none;
+    border-bottom: none;
   }
   .video-reveal__media {
     object-position: center center;
-    transform: scale(1.72);
+    object-fit: cover;
+    transform: scale(1.14);
     transform-origin: center center;
   }
   .video-reveal__content {
-    padding: clamp(14px, 2.5vh, 26px) 14px clamp(14px, 3vh, 24px);
+    padding: clamp(14px, 2vh, 18px) 14px clamp(10px, 1.6vh, 14px);
   }
   .video-reveal__date-big {
-    font-size: clamp(26px, 8vw, 38px);
+    font-size: clamp(20px, 5.8vw, 28px);
   }
   .video-reveal__name {
-    font-size: clamp(32px, 9.5vw, 48px);
+    font-size: clamp(26px, 7vw, 36px);
   }
   .video-reveal__amp {
-    font-size: clamp(22px, 6.5vw, 34px);
+    font-size: clamp(18px, 5vw, 24px);
   }
 }
 

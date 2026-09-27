@@ -11,7 +11,7 @@ import { FleuronRow } from './Ornaments';
 export function VideoReveal() {
   const { t } = useLang();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

@@ -9,12 +9,18 @@ import { useLang } from './i18n';
 import { useMusic } from './hooks/useMusic';
 import { computeGeo, readViewport } from './lib/geometry';
 
-/** Unboxing choreography: smooth envelope opening and dissolve */
+/** Unboxing choreography: majestic slow envelope opening, hero text reveal, and dissolve */
 const NEXT: Partial<Record<Stage, Stage>> = { opening: 'fading', fading: 'done' };
-const DURATION: Partial<Record<Stage, number>> = { opening: 950, fading: 350 };
+const DURATION: Partial<Record<Stage, number>> = { opening: 3800, fading: 700 };
 
 export default function App() {
-  const [stage, setStage] = useState<Stage>('sealed');
+  const [stage, setStage] = useState<Stage>(() => {
+    if (typeof window !== 'undefined') {
+      const s = new URLSearchParams(window.location.search).get('stage') as Stage;
+      if (s === 'opening' || s === 'fading' || s === 'done') return s;
+    }
+    return 'sealed';
+  });
   const [ready, setReady] = useState(false);
   const [geo, setGeo] = useState(() => computeGeo(readViewport()));
   const music = useMusic();
@@ -78,7 +84,7 @@ export default function App() {
     }
   }, [music]);
 
-  const pageVisible = stage === 'opening' || stage === 'fading' || stage === 'done';
+  const pageVisible = stage === 'fading' || stage === 'done';
 
   return (
     <>

@@ -61,6 +61,12 @@ export function EnvelopeScene({ stage, geo, ready, onOpen }: SceneProps) {
               <img src={envelopeBack} alt="" className="env-back__img" draggable={false} />
             </div>
 
+            {/* "You are cordially invited" / "يسعدنا ويشرفنا" Hero announcement lockup */}
+            <div className="invited-hero" aria-hidden={stage === 'sealed'}>
+              <div className="invited-hero__formal">{t.heroInvite.formal}</div>
+              <div className="invited-hero__script">{t.heroInvite.script}</div>
+            </div>
+
             {/* Pristine closed envelope front (visible when sealed for 100% seamless photo look) */}
             <div className="env-front-sealed" aria-hidden="true">
               <img src={oliveEnvelope} alt="" className="env-front__img" draggable={false} />
