@@ -95,7 +95,8 @@ class MusicEngine {
   private suspended = false;
 
   constructor() {
-    void this.init();
+    this.initAudio();
+    this.setupGlobalUnlock();
     document.addEventListener('visibilitychange', this.onVisibility);
   }
 
@@ -108,12 +109,72 @@ class MusicEngine {
 
   getSnapshot = () => this.status;
 
-  /** Must be called synchronously inside the user's tap/click. */
+  /**
+   * Global unlock for mobile devices:
+   * Browsers block audio until the first user interaction.
+   * This ensures audio begins as soon as the user touches, taps, or opens the invite.
+   */
+  private setupGlobalUnlock() {
+    const tryAutoStart = () => {
+      if (!this.startedOnce) {
+        this.start();
+      }
+    };
+
+    // Attempt immediate unmuted play (supported on desktop and open browsers)
+    if (this.audio) {
+      try {
+        const p = this.audio.play();
+        if (p !== undefined) {
+          p.then(() => {
+            this.want = true;
+            this.startedOnce = true;
+            this.setStatus('playing');
+            this.fadeTo(MUSIC.volume, MUSIC.fadeInMs);
+          }).catch(() => {
+            // Mobile browser blocks immediate autoplay before user gesture; expected.
+          });
+        }
+      } catch {
+        /* noop */
+      }
+    }
+
+    // Auto-unlock on the VERY FIRST touch/interaction anywhere on mobile
+    const events: Array<keyof WindowEventMap> = ['touchstart', 'touchend', 'pointerdown', 'click', 'scroll', 'keydown'];
+    const handler = () => {
+      tryAutoStart();
+      events.forEach((evt) => window.removeEventListener(evt, handler));
+    };
+    events.forEach((evt) => window.addEventListener(evt, handler, { passive: true }));
+  }
+
+  /** Synchronous start method called inside user gestures (envelope tap, screen touch, button click) */
   start = () => {
-    if (this.want) return;
     this.want = true;
-    this.vol = 0;
-    if (this.audio) this.audio.volume = 0;
+    this.startedOnce = true;
+    if (this.kind === 'file' && this.audio) {
+      const a = this.audio;
+      try {
+        if (a.currentTime < MUSIC.fileStartSeconds - 0.05) {
+          a.currentTime = MUSIC.fileStartSeconds;
+        }
+      } catch {
+        /* noop */
+      }
+      const p = a.play();
+      if (p !== undefined) {
+        p.then(() => {
+          this.setStatus('playing');
+          this.fadeTo(MUSIC.volume, MUSIC.fadeInMs);
+        }).catch((err) => {
+          console.debug('[music] Audio play deferred until user gesture:', err);
+        });
+      } else {
+        this.setStatus('playing');
+      }
+      return;
+    }
     this.play(MUSIC.fadeInMs);
   };
 
@@ -165,46 +226,52 @@ class MusicEngine {
     this.listeners.forEach((l) => l());
   }
 
-  private async init() {
-    if (await hasLocalTrack(MUSIC.fileUrl)) {
-      const a = new Audio();
-      a.src = MUSIC.fileUrl;
-      a.loop = false; // looped manually so every repeat restarts at the vocals
-      a.preload = 'auto';
-      const seekToVocals = () => {
-        try {
-          if (a.currentTime < MUSIC.fileStartSeconds - 0.05) a.currentTime = MUSIC.fileStartSeconds;
-        } catch {
-          /* not seekable yet */
-        }
-      };
-      a.addEventListener('loadedmetadata', seekToVocals);
-      a.addEventListener('ended', () => {
-        a.currentTime = MUSIC.fileStartSeconds;
-        if (this.want) void a.play().catch(() => undefined);
-      });
-      a.setAttribute('playsinline', '');
-      a.volume = 0;
-      a.addEventListener('pause', () => {
-        if (this.want && !this.suspended && !a.ended && a.currentTime < (a.duration || Infinity) - 0.3) {
-          this.want = false;
-          this.setStatus('paused');
-        }
-      });
-      a.addEventListener('error', () => {
-        // the audio file could not be decoded/loaded → stream from YouTube instead
-        if (this.kind !== 'file') return;
-        this.kind = 'none';
-        this.audio = null;
-        void this.initYouTube();
-      });
-      this.audio = a;
-      this.kind = 'file';
+  private initAudio() {
+    const a = new Audio();
+    a.src = MUSIC.fileUrl;
+    a.loop = false;
+    a.preload = 'auto';
+    a.setAttribute('playsinline', '');
+    a.setAttribute('webkit-playsinline', '');
+    a.volume = MUSIC.volume;
+
+    const seekToVocals = () => {
+      try {
+        if (a.currentTime < MUSIC.fileStartSeconds - 0.05) a.currentTime = MUSIC.fileStartSeconds;
+      } catch {
+        /* not seekable yet */
+      }
+    };
+    a.addEventListener('loadedmetadata', seekToVocals);
+    a.addEventListener('canplay', () => {
       if (this.status === 'loading') this.setStatus('ready');
-      if (this.want) this.play(MUSIC.fadeInMs);
-      return;
-    }
-    await this.initYouTube();
+    });
+    a.addEventListener('ended', () => {
+      a.currentTime = MUSIC.fileStartSeconds;
+      if (this.want) void a.play().catch(() => undefined);
+    });
+    a.addEventListener('pause', () => {
+      if (this.want && !this.suspended && !a.ended && a.currentTime < (a.duration || Infinity) - 0.3) {
+        this.want = false;
+        this.setStatus('paused');
+      }
+    });
+    a.addEventListener('error', () => {
+      // If local audio URL fails, fall back to remote URL
+      if (a.src !== MUSIC.remoteUrl) {
+        a.src = MUSIC.remoteUrl;
+        a.load();
+        return;
+      }
+      // If both fail, fall back to YouTube
+      this.kind = 'none';
+      this.audio = null;
+      void this.initYouTube();
+    });
+
+    this.audio = a;
+    this.kind = 'file';
+    this.setStatus('ready');
   }
 
   private async initYouTube() {

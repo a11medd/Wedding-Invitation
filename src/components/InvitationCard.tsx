@@ -27,21 +27,23 @@ export function InvitationCard({ preview = false }: { preview?: boolean }) {
           <div className="card-content">
             {/* ── Names over the film ── */}
             <div className="hero-frame">
-              <div className="hero-window">
-                <HeroVideo preview={preview} />
-                <span className="hero-glow" aria-hidden="true" />
-                <span className="hero-shade" aria-hidden="true" />
-                <span className="hero-hairline" aria-hidden="true" />
-                <div className="hero-text lang-fade">
-                  <div className="hero-top">
-                    <p className="hero-kicker">{t.hero.kicker}</p>
-                    <Title className="hero-names hero-names--inline" aria-label={t.hero.namesAria}>
-                      <span className="hero-name">{t.hero.groom}</span>
-                      <span className="hero-amp" aria-hidden="true">
-                        {t.hero.amp}
-                      </span>
-                      <span className="hero-name">{t.hero.bride}</span>
-                    </Title>
+              <div className="hero-matting">
+                <div className="hero-window">
+                  <HeroVideo preview={preview} />
+                  <span className="hero-glow" aria-hidden="true" />
+                  <span className="hero-shade" aria-hidden="true" />
+                  <span className="hero-hairline" aria-hidden="true" />
+                  <div className="hero-text lang-fade">
+                    <div className="hero-top">
+                      <p className="hero-kicker">{t.hero.kicker}</p>
+                      <Title className="hero-names hero-names--inline" aria-label={t.hero.namesAria}>
+                        <span className="hero-name">{t.hero.groom}</span>
+                        <span className="hero-amp" aria-hidden="true">
+                          {t.hero.amp}
+                        </span>
+                        <span className="hero-name">{t.hero.bride}</span>
+                      </Title>
+                    </div>
                   </div>
                 </div>
               </div>

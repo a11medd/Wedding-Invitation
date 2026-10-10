@@ -84,7 +84,7 @@ const en: Dict = {
     items: [
       {
         title: 'Dress Code',
-        text: 'We would love for our lovely ladies to shine in Burgundy and Royal Olive, and gentlemen in elegant black suits.',
+        text: 'We are delighted to have you join us at your finest and in the colors that reflect your joy; your presence is the most cherished part of our night.',
       },
       {
         title: 'Personal Invitation',
@@ -103,7 +103,7 @@ const en: Dict = {
     title: 'With Love & Gratitude',
     text: 'Your presence is the most cherished part of our love story',
     rsvp: 'RSVP',
-    rsvpNote: 'Kindly confirm your attendance via WhatsApp',
+    rsvpNote: 'Click here to confirm attendance via WhatsApp',
     whatsappMessage: "Hello, I would like to confirm my attendance for Ahmed & Aya's Wedding.",
   },
   footer: { date: 'Wednesday · 27 January 2027', credits: 'Designed with love by Ahmed Osama' },
@@ -166,7 +166,7 @@ const ar: Dict = {
     items: [
       {
         title: 'قواعد اللباس',
-        text: 'يسعدنا أن تتألق سيداتنا الجميلات بلونَي النبيتي والزيتي الملكي، وأن يطلّ السادة ببدلات سوداء أنيقة',
+        text: 'يسعدنا حضوركم بكامل أناقتكم وبالألوان التي تعبّر عن بهجتكم، فوجودكم هو أجمل تفاصيل ليلتنا.',
       },
       {
         title: 'دعوة شخصية',
@@ -185,7 +185,7 @@ const ar: Dict = {
     title: 'مع خالص الحب والامتنان',
     text: 'حضوركم هو أغلى ما في قصة حبنا',
     rsvp: 'تأكيد الحضور',
-    rsvpNote: 'يُرجى تأكيد حضوركم عبر واتساب',
+    rsvpNote: 'اضغط هنا لتأكيد الحضور عبر واتساب',
     whatsappMessage: 'مرحبًا، أودّ تأكيد حضوري لحفل زفاف أحمد & آية.',
   },
   footer: { date: 'الأربعاء · ٢٧ يناير ٢٠٢٧', credits: 'صُمم بحب بواسطة أحمد أسامة' },

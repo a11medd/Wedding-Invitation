@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { EnvelopeScene, type Stage } from './components/Envelope';
 import { InvitationCard } from './components/InvitationCard';
-import { Backdrop, Countdown, NamesDateVenue, Footer, Gratitude, Guidelines, LangToggle, MusicToggle, SaveTheDate, Schedule, Venue } from './components/Sections';
+import { Backdrop, Countdown, Footer, Gratitude, Guidelines, LangToggle, MusicToggle, SaveTheDate, Schedule, Venue } from './components/Sections';
 import { useLang } from './i18n';
 import { useMusic } from './hooks/useMusic';
 import { computeGeo, readViewport } from './lib/geometry';
@@ -98,7 +98,6 @@ export default function App() {
           <Venue />
           <Guidelines />
           <Gratitude />
-          <NamesDateVenue />
           <Footer />
         </main>
       {stage !== 'done' && <EnvelopeScene stage={stage} geo={geo} ready={ready} onOpen={open} targetRef={pageCardRef} />}

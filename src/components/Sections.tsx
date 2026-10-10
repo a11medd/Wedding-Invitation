@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { DRESS_COLORS, EVENT, LINKS, MUSIC, whatsappUrl } from '../config';
+import { EVENT, LINKS, MUSIC, whatsappUrl } from '../config';
 import { useCountdown } from '../hooks/useCountdown';
 import type { MusicStatus } from '../hooks/useMusic';
 import { useLang } from '../i18n';
@@ -88,19 +88,19 @@ export function Countdown() {
 
       <Reveal delay={120}>
         <div className="countdown-stage">
-          <span className="orb orb--a" aria-hidden="true" />
-          <span className="orb orb--b" aria-hidden="true" />
           {done ? (
-            <p className="countdown-done foil-light">{c.done}</p>
+            <p className="countdown-done">{c.done}</p>
           ) : (
-            <div className="countdown-grid" role="timer" aria-live="off">
+            <div className="countdown-editorial" role="timer" aria-live="off">
               {values.map((value, i) => (
-                <div key={i} className="glass-tile">
-                  <StarMark className="tile-star" />
-                  <span key={value} className="tile-num">
-                    {num(String(value).padStart(2, '0'))}
-                  </span>
-                  <span className="tile-label">{c.units[i]}</span>
+                <div key={i} className="countdown-group">
+                  {i > 0 && <span className="countdown-dot" aria-hidden="true">·</span>}
+                  <div className="countdown-col">
+                    <span className="countdown-num">
+                      {num(String(value).padStart(2, '0'))}
+                    </span>
+                    <span className="countdown-label">{c.units[i]}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -258,16 +258,6 @@ export function Guidelines() {
               </span>
               <h3 className="guideline-title">{item.title}</h3>
               <p className="guideline-text">{item.text}</p>
-              {i === 0 && (
-                <ul className="swatches" aria-label={g.colorsAria}>
-                  {DRESS_COLORS.map((c, ci) => (
-                    <li key={ci} className="swatch">
-                      <span className="swatch-chip" style={{ '--c': c.color, '--s': c.shade } as CSSProperties} />
-                      <span className="swatch-name">{g.colors[ci]}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
             </article>
           </Reveal>
         ))}
@@ -304,54 +294,75 @@ export function Gratitude() {
   );
 }
 
-/* ───────────────────────── Footer — names, date & venue ───────────────────────── */
-
-export function NamesDateVenue() {
-  const { t } = useLang();
-  return (
-    <section className="section footer-info lang-fade">
-      <TornDivider variant={1} />
-      <Reveal>
-        <div className="footer-seal">
-          <WaxSeal glint={false} />
-        </div>
-        <p className="footer-names">
-          <span className="foil-light">{t.hero.groom}</span>
-          <i>{t.hero.amp}</i>
-          <span className="foil-light">{t.hero.bride}</span>
-        </p>
-        <p className="footer-date">{t.footer.date}</p>
-        <p className="footer-venue">
-          <PinIcon className="footer-venue__icon" />
-          {t.venue.name}
-        </p>
-      </Reveal>
-    </section>
-  );
-}
+/* ───────────────────────── Footer — unified luxury dark green footer ───────────────────────── */
 
 export function Footer() {
   const { t } = useLang();
   return (
-    <section className="section footer lang-fade">
-      <TornDivider variant={2} />
-      <Reveal>
-        <div className="footer-credits-section">
-          <p className="footer-credits">
-            <span>{t.footer.credits}</span>
-            <span className="footer-credits__heart" aria-hidden="true">&#x2665;&#xFE0E;</span>
-          </p>
-          <div className="footer-social">
-            <a href="https://www.instagram.com/a11med.osama?stkn=ZXA5anF3cTI4c3Bl&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <InstagramIcon className="footer-social__icon" />
-            </a>
-            <a href="https://wa.me/201099561048" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-              <WhatsAppIcon className="footer-social__icon" />
-            </a>
+    <>
+      {/* Torn Paper Transition to Green Footer */}
+      <div className="relative w-full overflow-hidden leading-none z-10 -mb-[1px]">
+        <svg 
+          className="relative block w-full h-10 md:h-14 text-[#2D3A2E] filter drop-shadow-[0_-3px_5px_rgba(0,0,0,0.04)]" 
+          viewBox="0 0 1200 120" 
+          preserveAspectRatio="none"
+        >
+          <path 
+            d="M0,0 C45,18 90,8 140,22 C195,38 240,15 290,28 C345,42 390,20 445,35 C500,50 545,25 600,32 C655,39 700,18 755,28 C810,38 855,14 910,25 C965,36 1010,18 1065,24 C1120,30 1165,10 1200,18 L1200,120 L0,120 Z" 
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+
+      <footer className="footer-luxury bg-[#2D3A2E] text-white pt-10 pb-8 px-4 text-center relative z-10 lang-fade">
+        <Reveal>
+          <div className="max-w-[420px] mx-auto">
+            {/* Monogram / Couple Names */}
+            <p className="footer-couple-names text-2xl sm:text-3xl font-serif text-white tracking-widest mb-2 font-medium">
+              <span>{t.hero.groom}</span>
+              <i className="mx-2 font-normal italic opacity-90">{t.hero.amp}</i>
+              <span>{t.hero.bride}</span>
+            </p>
+
+            {/* Date & Venue */}
+            <p className="footer-meta text-xs uppercase tracking-[0.2em] text-white/90 mb-6 font-medium">
+              {t.footer.date} · {t.venue.name}
+            </p>
+
+            {/* Delicate Divider Line */}
+            <div className="w-20 h-[1px] bg-white/20 mx-auto mb-6" />
+
+            {/* Credits (CRITICAL - DO NOT CHANGE) */}
+            <p className="footer-credits text-xs text-white/80 mb-4 flex items-center justify-center gap-1">
+              <span>{t.footer.credits}</span>
+              <span className="text-white/90" aria-hidden="true">&#x2665;&#xFE0E;</span>
+            </p>
+
+            {/* Social Icons */}
+            <div className="flex justify-center items-center gap-4">
+              <a 
+                href="https://www.instagram.com/a11med.osama?stkn=ZXA5anF3cTI4c3Bl&utm_source=qr" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Instagram"
+                className="w-9 h-9 rounded-full border border-white/25 flex items-center justify-center text-white/90 hover:bg-white/10 hover:text-white hover:border-white transition-all duration-300 hover:-translate-y-0.5"
+              >
+                <InstagramIcon className="w-4 h-4" />
+              </a>
+              <a 
+                href="https://wa.me/201099561048" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="WhatsApp"
+                className="w-9 h-9 rounded-full border border-white/25 flex items-center justify-center text-white/90 hover:bg-white/10 hover:text-white hover:border-white transition-all duration-300 hover:-translate-y-0.5"
+              >
+                <WhatsAppIcon className="w-4 h-4" />
+              </a>
+            </div>
           </div>
-        </div>
-      </Reveal>
-    </section>
+        </Reveal>
+      </footer>
+    </>
   );
 }
 

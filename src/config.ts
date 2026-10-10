@@ -47,6 +47,7 @@ export const MUSIC = {
    * If that file is not found, the official YouTube upload is streamed instead.
    */
   fileUrl: `${import.meta.env.BASE_URL}audio/perfect.mp3`,
+  remoteUrl: 'https://archive.org/download/fave2/Ed%20Sheeran%20-%20Perfect.mp3',
   /**
    * Start at the first sung line "I found a love…" — not the instrumental intro.
    * Album version (÷ / Divide): the vocal enters at 2.98 s.
