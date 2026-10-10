@@ -345,7 +345,7 @@ export function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Instagram"
-                className="w-9 h-9 rounded-full border border-white/25 flex items-center justify-center text-white/90 hover:bg-white/10 hover:text-white hover:border-white transition-all duration-300 hover:-translate-y-0.5"
+                className="w-9 h-9 rounded-full border border-white/25 flex items-center justify-center text-white/90 hover:bg-white/10 hover:text-white hover:border-white transition-transform duration-200 hover:-translate-y-0.5 active:scale-90 active:duration-75 touch-manipulation"
               >
                 <InstagramIcon className="w-4 h-4" />
               </a>
@@ -354,7 +354,7 @@ export function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="WhatsApp"
-                className="w-9 h-9 rounded-full border border-white/25 flex items-center justify-center text-white/90 hover:bg-white/10 hover:text-white hover:border-white transition-all duration-300 hover:-translate-y-0.5"
+                className="w-9 h-9 rounded-full border border-white/25 flex items-center justify-center text-white/90 hover:bg-white/10 hover:text-white hover:border-white transition-transform duration-200 hover:-translate-y-0.5 active:scale-90 active:duration-75 touch-manipulation"
               >
                 <WhatsAppIcon className="w-4 h-4" />
               </a>

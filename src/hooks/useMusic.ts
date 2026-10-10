@@ -115,42 +115,24 @@ class MusicEngine {
    * This ensures audio begins as soon as the user touches, taps, or opens the invite.
    */
   private setupGlobalUnlock() {
-    const tryAutoStart = () => {
+    let unlocked = false;
+    const unlock = () => {
+      if (unlocked) return;
+      unlocked = true;
+      events.forEach((evt) => window.removeEventListener(evt, unlock, { capture: true }));
       if (!this.startedOnce) {
         this.start();
       }
     };
 
-    // Attempt immediate unmuted play (supported on desktop and open browsers)
-    if (this.audio) {
-      try {
-        const p = this.audio.play();
-        if (p !== undefined) {
-          p.then(() => {
-            this.want = true;
-            this.startedOnce = true;
-            this.setStatus('playing');
-            this.fadeTo(MUSIC.volume, MUSIC.fadeInMs);
-          }).catch(() => {
-            // Mobile browser blocks immediate autoplay before user gesture; expected.
-          });
-        }
-      } catch {
-        /* noop */
-      }
-    }
-
-    // Auto-unlock on the VERY FIRST touch/interaction anywhere on mobile
-    const events: Array<keyof WindowEventMap> = ['touchstart', 'touchend', 'pointerdown', 'click', 'scroll', 'keydown'];
-    const handler = () => {
-      tryAutoStart();
-      events.forEach((evt) => window.removeEventListener(evt, handler));
-    };
-    events.forEach((evt) => window.addEventListener(evt, handler, { passive: true }));
+    // Auto-unlock on the VERY FIRST touch or pointerdown anywhere without blocking the UI thread
+    const events: Array<keyof WindowEventMap> = ['pointerdown', 'touchstart'];
+    events.forEach((evt) => window.addEventListener(evt, unlock, { capture: true, passive: true }));
   }
 
   /** Synchronous start method called inside user gestures (envelope tap, screen touch, button click) */
   start = () => {
+    if (this.startedOnce && this.status === 'playing') return;
     this.want = true;
     this.startedOnce = true;
     if (this.kind === 'file' && this.audio) {

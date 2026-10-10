@@ -40,6 +40,20 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-tap-highlight-color: transparent;
 }
+
+/* Global Instant Button Responsiveness & Hardware Acceleration */
+button,
+a,
+[role="button"],
+.rsvp-seal,
+.btn-foil,
+.lang-btn,
+.music-btn,
+.envelope {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 ::selection {
   background: rgba(50, 61, 46, 0.22);
   color: #1b2418;
@@ -452,15 +466,20 @@ html[lang="ar"] .invited-hero__script {
   border-radius: 50%;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
   will-change: transform;
-  transition: transform 0.35s var(--ease-soft);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 @media (hover: hover) {
   .stage-sealed .envelope:hover .seal-inner {
-    transform: scale(1.035) translateY(-1px);
+    transform: scale(1.035) translateY(-1px) translateZ(0);
   }
 }
 .stage-sealed .envelope:active .seal-inner {
-  transform: scale(0.965);
+  transform: scale(0.95) translateZ(0) !important;
+  transition-duration: 70ms !important;
+  transition-delay: 0s !important;
 }
 .stage-opening .seal-inner {
   animation: seal-pop 0.6s cubic-bezier(0.3, 1.4, 0.5, 1) both;
@@ -1648,8 +1667,13 @@ html[lang="ar"] .scene-eyebrow {
   text-decoration: none;
   background: linear-gradient(115deg, #2D3A2E, #556453 25%, #738470 50%, #556453 75%, #2D3A2E);
   box-shadow: 0 14px 30px -10px rgba(25, 35, 20, 0.25);
-  transition: transform 0.25s var(--ease-soft);
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .btn-foil::before {
   content: "";
@@ -1672,7 +1696,9 @@ html[lang="ar"] .scene-eyebrow {
   }
 }
 .btn-foil:active {
-  transform: scale(0.98);
+  transform: scale(0.97) translateZ(0) !important;
+  transition-duration: 70ms !important;
+  transition-delay: 0s !important;
 }
 .btn-foil:focus-visible {
   outline: 2px solid rgba(45, 58, 46, 0.7);
@@ -1788,15 +1814,21 @@ html[lang="ar"] .scene-eyebrow {
   background: none;
   padding: 0;
   outline: none;
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms ease;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .rsvp-seal:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 0 6px rgba(45, 58, 46, 0.2);
+  transform: scale(1.05) translateZ(0);
 }
 .rsvp-seal:active {
-  transform: scale(0.95);
+  transform: scale(0.94) translateZ(0) !important;
+  transition-duration: 70ms !important;
+  transition-delay: 0s !important;
 }
 .rsvp-seal:focus-visible {
   outline: 2px solid #2D3A2E;
@@ -1809,7 +1841,9 @@ html[lang="ar"] .scene-eyebrow {
   width: 100%;
   height: 100%;
   overflow: visible;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4)) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+  will-change: transform;
+  transform: translateZ(0);
 }
 .rsvp-seal__content {
   position: relative;
@@ -1986,10 +2020,18 @@ html[lang="ar"] .footer-credits {
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   -webkit-backdrop-filter: blur(14px) saturate(160%);
   backdrop-filter: blur(14px) saturate(160%);
-  transition: transform 0.25s var(--ease-soft);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .music-btn:active {
-  transform: scale(0.94);
+  transform: scale(0.92) translateZ(0) !important;
+  transition-duration: 70ms !important;
+  transition-delay: 0s !important;
 }
 .music-btn:focus-visible {
   outline: 2px solid rgba(243, 223, 166, 0.9);
@@ -2130,22 +2172,28 @@ html[lang="ar"] .footer-credits {
     0 10px 26px rgba(0, 0, 0, 0.45),
     inset 0 1px 0 rgba(255, 255, 255, 0.18);
   -webkit-backdrop-filter: blur(14px) saturate(160%);
-  backdrop-filter: blur(14px) saturate(160%);
-  transition:
-    opacity 0.8s ease 0.6s,
-    transform 0.8s var(--ease-soft) 0.6s,
-    border-color 0.3s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transform: translate3d(0, -8px, 0);
   opacity: 0;
   pointer-events: none;
-  transform: translate3d(0, -8px, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition:
+    opacity 0.6s ease 0.4s,
+    transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.2s ease;
 }
 .lang-btn.is-visible {
   opacity: 1;
   pointer-events: auto;
-  transform: none;
+  transform: translateZ(0);
 }
 .lang-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.93) translateZ(0) !important;
+  transition-duration: 70ms !important;
+  transition-delay: 0s !important;
 }
 @media (hover: hover) {
   .lang-btn:hover {
